@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miriam.Api", "Miriam.Api\Miriam.Api.csproj", "{30380B2F-4AB9-4D7E-8408-281F05505730}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miriam.Domain", "Miriam.Domain\Miriam.Domain.csproj", "{1486093B-4DA2-4FE2-AECE-FA33498630A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miriam.Application", "Miriam.Application\Miriam.Application.csproj", "{A0512E82-FD50-4F4D-98F2-282679F1D4C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miriam.Infrastructure", "Miriam.Infrastructure\Miriam.Infrastructure.csproj", "{2B6B4561-E2A2-4E2E-8837-FDE9F8896C52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miriam.Web", "Miriam.Web\Miriam.Web.csproj", "{6E62B791-C022-4FF6-ACF4-C4408343C491}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miriam.Contracts", "Miriam.Contracts\Miriam.Contracts.csproj", "{2A21044E-B06A-4558-A54F-F25789F49A20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30380B2F-4AB9-4D7E-8408-281F05505730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30380B2F-4AB9-4D7E-8408-281F05505730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30380B2F-4AB9-4D7E-8408-281F05505730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30380B2F-4AB9-4D7E-8408-281F05505730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1486093B-4DA2-4FE2-AECE-FA33498630A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1486093B-4DA2-4FE2-AECE-FA33498630A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1486093B-4DA2-4FE2-AECE-FA33498630A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1486093B-4DA2-4FE2-AECE-FA33498630A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0512E82-FD50-4F4D-98F2-282679F1D4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0512E82-FD50-4F4D-98F2-282679F1D4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0512E82-FD50-4F4D-98F2-282679F1D4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0512E82-FD50-4F4D-98F2-282679F1D4C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B6B4561-E2A2-4E2E-8837-FDE9F8896C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B6B4561-E2A2-4E2E-8837-FDE9F8896C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B6B4561-E2A2-4E2E-8837-FDE9F8896C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B6B4561-E2A2-4E2E-8837-FDE9F8896C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E62B791-C022-4FF6-ACF4-C4408343C491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E62B791-C022-4FF6-ACF4-C4408343C491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E62B791-C022-4FF6-ACF4-C4408343C491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E62B791-C022-4FF6-ACF4-C4408343C491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A21044E-B06A-4558-A54F-F25789F49A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A21044E-B06A-4558-A54F-F25789F49A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A21044E-B06A-4558-A54F-F25789F49A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A21044E-B06A-4558-A54F-F25789F49A20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
