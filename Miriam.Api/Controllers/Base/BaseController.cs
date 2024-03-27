@@ -1,11 +1,14 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Miriam.Api.Controllers.v1.Base;
+namespace Miriam.Api.Controllers.Base;
 
-[Route("api/v{version:apiVersion}/[controller]")]
+[Authorize]
 [ApiController]
-public abstract class BaseController(IMediator mediator) : ControllerBase
+[Route("api/v{version:apiVersion}/[controller]")]
+[Produces("application/json")]
+public abstract class BaseController(IMediator mediator) : Controller
 {
     
 }
