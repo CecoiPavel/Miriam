@@ -1,33 +1,49 @@
 using System.Text;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Miriam.Api;
+using Miriam.Api.Startup;
 using Miriam.Application;
 using Miriam.Infrastructure;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using DependencyInjection = Miriam.Application.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     //Configuration
     var configuration = builder.Configuration;
-    
+
     //Add services to the container
     builder.Services.AddMediatR(config =>
         config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
     builder.Services.AddControllers();
 
+    builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerConfiguration>();
     //Swagger
     builder.Services.AddSwaggerGen(genOptions =>
     {
-        genOptions.AddSecurityDefinition("Miriam API Bearer Auth", new OpenApiSecurityScheme
+        genOptions.SupportNonNullableReferenceTypes();
+        genOptions.EnableAnnotations();
+
+        genOptions.CustomSchemaIds(x =>
         {
-            Type = SecuritySchemeType.Http,
-            Scheme = "Bearer",
-            Description = "Input a valid token to access this API"
+            var projectName = x.Assembly.FullName?.Split(",").FirstOrDefault();
+            return $"{projectName}_{x.GetHashCode()}.{x.Name}";
         });
+
+        genOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "Enter JWT Bearer token to access Miriam",
+            Name = "JWT Authentication",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "Bearer"
+        });
+        genOptions.ResolveConflictingActions(apiDescriptions => apiDescriptions.FirstOrDefault());
         genOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
             {
@@ -35,9 +51,12 @@ var builder = WebApplication.CreateBuilder(args);
                 {
                     Reference = new OpenApiReference
                     {
-                        Id = "Miriam API Bearer Auth",
-                        Type = ReferenceType.SecurityScheme
-                    }
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    },
+                    Scheme = "oauth2",
+                    Name = "Bearer",
+                    In = ParameterLocation.Header
                 },
                 new List<string>()
             }
@@ -53,38 +72,13 @@ var builder = WebApplication.CreateBuilder(args);
         options.ApiVersionReader = ApiVersionReader.Combine(
             new UrlSegmentApiVersionReader(),
             new HeaderApiVersionReader("api-version"));
-    }).AddApiExplorer(options =>
+    })
+        
+        .EnableApiVersionBinding()
+        .AddApiExplorer(options =>
     {
-        options.GroupNameFormat = "'v'V";
+        options.GroupNameFormat = "'v'VVV";
         options.SubstituteApiVersionInUrl = true;
-    });
-    
-    //JWT Authentication
-
-    var jwtIssuer = configuration["Jwt:Issuer"];
-    var jwtKey = configuration["Jwt:Key"];
-
-    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            if (jwtKey != null)
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtIssuer,
-                    ValidAudience = jwtIssuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
-                };
-        });
-
-    builder.Services.AddAuthentication(x =>
-    {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     });
 }
 
@@ -105,7 +99,7 @@ var app = builder.Build();
     app.UseAuthentication();
 
     app.MapControllers();
-    
+
     //Run
     app.Run();
 }

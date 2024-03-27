@@ -26,7 +26,7 @@ public static class DependencyInjection
     {
         services.AddSwaggerGen(genOptions =>
         {
-            genOptions.AddSecurityDefinition("Miriam API Bearer Auth", new OpenApiSecurityScheme
+            genOptions.AddSecurityDefinition("MiriamBearerAuth", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.Http,
                 Scheme = "Bearer",
@@ -39,7 +39,7 @@ public static class DependencyInjection
                     {
                         Reference = new OpenApiReference
                         {
-                            Id = "Miriam API Bearer Auth",
+                            Id = "MiriamBearerAuth",
                             Type = ReferenceType.SecurityScheme
                         }
                     },
