@@ -1,17 +1,16 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Miriam.Application.Authentication.Command;
 using Miriam.Application.Authentication.DTOs;
+using Miriam.Application.Common.Authentication;
 
-namespace Miriam.Application.Authentication;
+namespace Miriam.Infrastructure.Authentication;
 
-public class AuthenticationHandler(IConfiguration configuration)
-    : IRequestHandler<AuthenticationCommand, UserToken>
+public class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerator
 {
-    public Task<UserToken> Handle(AuthenticationCommand request, CancellationToken cancellationToken)
+    public AuthenticationResult GenerateToken()
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? string.Empty));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -21,12 +20,12 @@ public class AuthenticationHandler(IConfiguration configuration)
 
         var token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         var currentTime = DateTime.UtcNow;
-        return Task.FromResult(new UserToken
+        
+        return new AuthenticationResult
         {
             AccessToken = token,
-            Email = request.Email,
             CurrentTime = currentTime,
             Expiration = currentTime.AddMinutes(30)
-        });
+        };
     }
 }

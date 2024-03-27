@@ -1,13 +1,7 @@
-using System.Text;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Miriam.Api;
 using Miriam.Api.Startup;
-using Miriam.Application;
-using Miriam.Infrastructure;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using DependencyInjection = Miriam.Application.DependencyInjection;
 
@@ -69,12 +63,7 @@ var builder = WebApplication.CreateBuilder(args);
         options.DefaultApiVersion = new ApiVersion(1, 0);
         options.ReportApiVersions = true;
         options.AssumeDefaultVersionWhenUnspecified = true;
-        options.ApiVersionReader = ApiVersionReader.Combine(
-            new UrlSegmentApiVersionReader(),
-            new HeaderApiVersionReader("api-version"));
     })
-        
-        .EnableApiVersionBinding()
         .AddApiExplorer(options =>
     {
         options.GroupNameFormat = "'v'VVV";
