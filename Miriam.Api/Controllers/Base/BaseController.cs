@@ -1,8 +1,11 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Miriam.Api.Controllers.Base;
+namespace Miriam.Api.Controllers.v1.Base;
 
-public class BaseController : Controller
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiController]
+public abstract class BaseController(IMediator mediator) : ControllerBase
 {
     
 }
