@@ -1,6 +1,13 @@
-namespace Miriam.Application.Repositories.Base;
+using Miriam.Domain.Base;
 
-public interface IRepository
+namespace Miriam.Application.Abstractions.Repositories;
+
+public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 {
-    
+    IUnitOfWork UnitOfWork { get; }
+    public Task<IEnumerable<TEntity>> GetAll();
+    public Task<TEntity> GetById(int entityId);
+    public Task<TEntity> Create(TEntity entity);
+    public Task<TEntity> Update(TEntity entity);
+    public Task Delete(int entityId);
 }

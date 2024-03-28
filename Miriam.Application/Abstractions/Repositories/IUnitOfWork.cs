@@ -1,6 +1,6 @@
-namespace Miriam.Application.Repositories.Base;
+namespace Miriam.Application.Abstractions.Repositories;
 
 public interface IUnitOfWork
 {
-    
+    Task<int> SaveChangesAsync();
 }

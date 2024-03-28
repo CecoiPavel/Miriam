@@ -3,7 +3,6 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Miriam.Application.Authentication.DTOs;
 using Miriam.Application.Common.Authentication;
 
 namespace Miriam.Infrastructure.Authentication;
