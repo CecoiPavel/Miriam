@@ -7,6 +7,7 @@ using Miriam.Domain.Common;
 using Miriam.Domain.Posts;
 using Miriam.Domain.Tag;
 using Miriam.Infrastructure.Authentication;
+using Miriam.Infrastructure.Persistence.Configurations;
 
 namespace Miriam.Infrastructure.Persistence;
 
@@ -15,7 +16,7 @@ public class MiriamDbContext(IUnitOfWork unitOfWork, IConfiguration configuratio
     public DbSet<AuthenticationUser> Users { get; set; }
     public DbSet<PostEntity> Posts { get; set; }
     public DbSet<CategoryEntity> Categories { get; set; }
-    public DbSet<PostCategoryEntity> PostCategories { get; set; }
+    public DbSet<PostCategoriesEntity> PostCategories { get; set; }
     public DbSet<CommentEntity> Comments { get; set; }
     public DbSet<TagEntity> Tags { get; set; }
     public DbSet<PostTagsEntity> PostTags { get; set; }
@@ -28,7 +29,12 @@ public class MiriamDbContext(IUnitOfWork unitOfWork, IConfiguration configuratio
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        //TODO : Add Entities configs here
+        builder.ApplyConfiguration(new PostEntityConfig());
+        builder.ApplyConfiguration(new CommentEntityConfig());
+        builder.ApplyConfiguration(new PostCategoriesEntityConfig());
+        builder.ApplyConfiguration(new CategoryEntityConfig());
+        builder.ApplyConfiguration(new PostTagsEntityConfig());
+        builder.ApplyConfiguration(new TagEntityConfig());
         
         base.OnModelCreating(builder);
     }

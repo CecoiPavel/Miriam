@@ -9,8 +9,9 @@ public class PostEntity : EntityFullAudited
 {
     public string Title { get; set; }
     public string Content { get; set; }
+    public string UserId { get; set; }
     public virtual UserEntity UserEntity { get; set; }
-    public virtual ICollection<PostCategoryEntity> Categories { get; set; }
+    public virtual ICollection<PostCategoriesEntity> Categories { get; set; }
     public virtual ICollection<CommentEntity> Comments { get; set; }
     public virtual ICollection<PostTagsEntity> Tags { get; set; }
 
@@ -18,7 +19,7 @@ public class PostEntity : EntityFullAudited
         string title,
         string content,
         UserEntity user,
-        ICollection<PostCategoryEntity> categories,
+        ICollection<PostCategoriesEntity> categories,
         ICollection<CommentEntity> comments,
         ICollection<PostTagsEntity> tags)
     {
@@ -40,7 +41,7 @@ public class PostEntity : EntityFullAudited
         string content,
         DateTimeOffset modificationTime,
         UserEntity user,
-        ICollection<PostCategoryEntity> categories,
+        ICollection<PostCategoriesEntity> categories,
         ICollection<CommentEntity> comments,
         ICollection<PostTagsEntity> tags)
     {

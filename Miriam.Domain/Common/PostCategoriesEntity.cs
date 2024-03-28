@@ -4,7 +4,7 @@ using Miriam.Domain.Posts;
 
 namespace Miriam.Domain.Common;
 
-public class PostCategoryEntity : EntityFullAudited
+public class PostCategoriesEntity : EntityFullAudited
 {
     public string PostId { get; set; }
     public string CategoryId { get; set; }

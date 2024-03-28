@@ -8,5 +8,5 @@ public class CategoryEntity : EntityFullAudited
 {
     public string Title { get; set; }
     public string Description { get; set; }
-    public virtual ICollection<PostCategoryEntity> Posts { get; set; }
+    public virtual ICollection<PostCategoriesEntity> Posts { get; set; }
 }
