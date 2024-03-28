@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Miriam.Application.Abstractions.Repositories;
 using Miriam.Domain.Categories;
 using Miriam.Domain.Comments;
 using Miriam.Domain.Common;
@@ -11,7 +9,7 @@ using Miriam.Infrastructure.Persistence.Configurations;
 
 namespace Miriam.Infrastructure.Persistence;
 
-public class MiriamDbContext(IUnitOfWork unitOfWork, IConfiguration configuration) : DbContext
+public class MiriamDbContext(DbContextOptions<MiriamDbContext> options) : DbContext(options)
 {
     public DbSet<AuthenticationUser> Users { get; set; }
     public DbSet<PostEntity> Posts { get; set; }
@@ -21,12 +19,6 @@ public class MiriamDbContext(IUnitOfWork unitOfWork, IConfiguration configuratio
     public DbSet<TagEntity> Tags { get; set; }
     public DbSet<PostTagsEntity> PostTags { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder builder)
-    {
-        builder.UseLazyLoadingProxies()
-            .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new PostEntityConfig());
@@ -35,7 +27,7 @@ public class MiriamDbContext(IUnitOfWork unitOfWork, IConfiguration configuratio
         builder.ApplyConfiguration(new CategoryEntityConfig());
         builder.ApplyConfiguration(new PostTagsEntityConfig());
         builder.ApplyConfiguration(new TagEntityConfig());
-        
+
         base.OnModelCreating(builder);
     }
 }
