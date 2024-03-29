@@ -6,11 +6,10 @@ namespace Miriam.Infrastructure.Persistence.Repositories;
 
 public class UserRepository(MiriamDbContext context) : Repository<UserEntity>(context), IUserRepository
 {
-    public async Task<List<IUser>> GetUser()
+    public Task<List<IUser>> GetUser()
     {
-        await Task.CompletedTask;
         var result = context.Users.ToList();
-        return result.Cast<IUser>().ToList();
+        return Task.FromResult(result.Cast<IUser>().ToList());
     }
 
     public Task<UserEntity> GetUserByName(string userName)

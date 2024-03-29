@@ -19,10 +19,11 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddRepositoriesConfig();
         services.AddDbContextConfig(configuration);
+        
         return services;
     }
 
-    private static void AddRepositoriesConfig(this IServiceCollection services)
+    private static IServiceCollection AddRepositoriesConfig(this IServiceCollection services)
     {
         services.AddTransient<IUnitOfWork>(provider =>
         {
@@ -38,14 +39,18 @@ public static class DependencyInjection
         services.AddTransient<ITagRepository, TagRepository>();
         services.AddTransient<ICommentRepository, CommentRepository>();
         services.AddTransient<IPostRepository, PostRepository>();
+        
+        return services;
     }
 
-    private static void AddDbContextConfig(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddDbContextConfig(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContextPool<MiriamDbContext>(options =>
+        services.AddDbContext<MiriamDbContext>(options =>
         {
             options.UseLazyLoadingProxies(); // Enable lazy loading
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });
+
+        return services;
     }
 }

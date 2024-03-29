@@ -4,9 +4,9 @@ using Miriam.Domain.Common;
 
 namespace Miriam.Infrastructure.Persistence.Configurations;
 
-public class PostTagsEntityConfig : IEntityTypeConfiguration<PostTagsEntity>
+public class PostTagsEntityConfig : IEntityTypeConfiguration<PostTagEntity>
 {
-    public void Configure(EntityTypeBuilder<PostTagsEntity> builder)
+    public void Configure(EntityTypeBuilder<PostTagEntity> builder)
     {
         builder.HasKey(pt => pt.Id);
 

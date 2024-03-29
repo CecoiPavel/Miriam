@@ -13,7 +13,7 @@ public class PostEntity : EntityFullAudited
     public virtual UserEntity UserEntity { get; set; }
     public virtual ICollection<PostCategoriesEntity> Categories { get; set; }
     public virtual ICollection<CommentEntity> Comments { get; set; }
-    public virtual ICollection<PostTagsEntity> Tags { get; set; }
+    public virtual ICollection<PostTagEntity> Tags { get; set; }
 
     public static PostEntity Create(
         string title,
@@ -21,7 +21,7 @@ public class PostEntity : EntityFullAudited
         UserEntity user,
         ICollection<PostCategoriesEntity> categories,
         ICollection<CommentEntity> comments,
-        ICollection<PostTagsEntity> tags)
+        ICollection<PostTagEntity> tags)
     {
         return new PostEntity
         {
@@ -43,7 +43,7 @@ public class PostEntity : EntityFullAudited
         UserEntity user,
         ICollection<PostCategoriesEntity> categories,
         ICollection<CommentEntity> comments,
-        ICollection<PostTagsEntity> tags)
+        ICollection<PostTagEntity> tags)
     {
         Title = title;
         Content = content;

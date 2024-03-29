@@ -12,11 +12,13 @@ public class CommentEntityConfig : IEntityTypeConfiguration<CommentEntity>
 
         builder.Property(c => c.ParentCommentId);
 
-        builder.HasOne(c => c.ParentComment)
-            .WithMany()
-            .HasForeignKey(c => c.ParentCommentId);
+        builder.HasOne<CommentEntity>(c => c.ParentComment)
+            .WithOne()
+            .HasForeignKey<CommentEntity>(c => c.ParentCommentId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(c => c.Post)
-            .WithMany(p => p.Comments);
+            .WithMany(p => p.Comments)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

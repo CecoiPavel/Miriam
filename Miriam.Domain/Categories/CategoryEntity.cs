@@ -1,6 +1,5 @@
 using Miriam.Domain.Base;
 using Miriam.Domain.Common;
-using Miriam.Domain.Posts;
 
 namespace Miriam.Domain.Categories;
 

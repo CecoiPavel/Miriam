@@ -18,7 +18,7 @@ public class PostEntityConfig : IEntityTypeConfiguration<PostEntity>
             .IsRequired();
 
         builder.HasOne(p => p.UserEntity)
-            .WithMany()
+            .WithMany(p => p.Posts)
             .HasForeignKey(p => p.UserId);
 
         builder.HasMany(p => p.Categories)
