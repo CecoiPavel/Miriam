@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Miriam.Application.Abstractions.Repositories;
 using Miriam.Application.Categories;
 using Miriam.Application.Comments;
 using Miriam.Application.Posts;
@@ -23,6 +24,9 @@ public static class DependencyInjection
 
     private static void AddRepositoriesConfig(this IServiceCollection services)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        // Implement UnitOfWork properly
+        
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<ITagRepository, TagRepository>();
@@ -32,7 +36,7 @@ public static class DependencyInjection
 
     private static void AddDbContextConfig(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<MiriamDbContext>(options =>
+        services.AddDbContextPool<MiriamDbContext>(options =>
         {
             options.UseLazyLoadingProxies(); // Enable lazy loading
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));

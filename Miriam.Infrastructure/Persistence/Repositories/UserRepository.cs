@@ -4,7 +4,7 @@ using Miriam.Domain.Users;
 
 namespace Miriam.Infrastructure.Persistence.Repositories;
 
-public class UserRepository(MiriamDbContext context) : Repository<UserEntity>, IUserRepository
+public class UserRepository(MiriamDbContext context) : Repository<UserEntity>(context), IUserRepository
 {
     public async Task<List<IUser>> GetUser()
     {

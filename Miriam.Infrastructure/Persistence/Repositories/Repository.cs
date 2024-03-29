@@ -1,38 +1,48 @@
+using Microsoft.EntityFrameworkCore;
 using Miriam.Application.Abstractions.Repositories;
 using Miriam.Domain.Base;
 
 namespace Miriam.Infrastructure.Persistence.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> where TEntity : Entity
 {
+    public async Task<IEnumerable<TEntity>> GetAll()
+    {
+        return await dbContext.Set<TEntity>().ToListAsync();
+    }
+
+    public async Task<TEntity?> GetById(int entityId)
+    {
+        return await dbContext.Set<TEntity>().FindAsync(entityId);
+    }
+
+    public async Task<TEntity> Create(TEntity entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity);
+
+        await dbContext.Set<TEntity>().AddAsync(entity);
+        return entity;
+    }
+
+    public async Task<TEntity> Update(TEntity entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity);
+
+        dbContext.Entry(entity).State = EntityState.Modified;
+        return entity;
+    }
+
+    public async Task Delete(int entityId)
+    {
+        var entity = await dbContext.Set<TEntity>().FindAsync(entityId);
+        if (entity != null)
+        {
+            dbContext.Set<TEntity>().Remove(entity);
+        }
+    }
+
     public void Dispose()
     {
-        throw new NotImplementedException();
-    }
-
-    public IUnitOfWork UnitOfWork { get; }
-    public Task<IEnumerable<TEntity>> GetAll()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity> GetById(int entityId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity> Create(TEntity entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity> Update(TEntity entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task Delete(int entityId)
-    {
-        throw new NotImplementedException();
+        dbContext.Dispose();
     }
 }

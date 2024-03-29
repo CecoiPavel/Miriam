@@ -64,12 +64,10 @@ public static class DependencyInjection
             options.DefaultApiVersion = new ApiVersion(1, 0);
             options.ReportApiVersions = true;
             options.AssumeDefaultVersionWhenUnspecified = true;
-            options.ApiVersionReader = ApiVersionReader.Combine(
-                new UrlSegmentApiVersionReader(),
-                new HeaderApiVersionReader("api-version"));
+            options.ApiVersionReader = new HeaderApiVersionReader("api-version");
         }).AddApiExplorer(options =>
         {
-            options.GroupNameFormat = "'v'V";
+            options.GroupNameFormat = "'v'VVV";
             options.SubstituteApiVersionInUrl = true;
         });
 
