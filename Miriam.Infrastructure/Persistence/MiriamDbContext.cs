@@ -21,13 +21,7 @@ public class MiriamDbContext(DbContextOptions<MiriamDbContext> options) : DbCont
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.ApplyConfiguration(new PostEntityConfig());
-        builder.ApplyConfiguration(new CommentEntityConfig());
-        builder.ApplyConfiguration(new PostCategoriesEntityConfig());
-        builder.ApplyConfiguration(new CategoryEntityConfig());
-        builder.ApplyConfiguration(new PostTagsEntityConfig());
-        builder.ApplyConfiguration(new TagEntityConfig());
-
+        builder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
         base.OnModelCreating(builder);
     }
 }

@@ -28,6 +28,7 @@
     <Folder Include="Abstractions\" />
     <Folder Include="Authentication\Commands\Register\" />
     <Folder Include="Posts\Commands\" />
+    <Folder Include="Posts\Common\" />
   </ItemGroup>
 
 </Project>
