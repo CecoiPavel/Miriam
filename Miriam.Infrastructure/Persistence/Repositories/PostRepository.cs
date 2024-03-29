@@ -1,10 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using Miriam.Application.Posts;
 using Miriam.Domain.Posts;
 
 namespace Miriam.Infrastructure.Persistence.Repositories;
 
-public class PostRepository(DbContext dbContext) : Repository<PostEntity>(dbContext), IPostRepository
+public class PostRepository(MiriamDbContext dbContext) : Repository<PostEntity>(dbContext), IPostRepository
 {
     public Task<IEnumerable<PostEntity>> GetAllPaginatedPosts()
     {

@@ -4,7 +4,6 @@ using Miriam.Application.Comments;
 using Miriam.Application.Posts;
 using Miriam.Application.Tags;
 using Miriam.Application.Users;
-using Miriam.Domain.Base;
 
 namespace Miriam.Infrastructure.Persistence.Repositories;
 
@@ -20,12 +19,6 @@ public sealed class UnitOfWork(MiriamDbContext dbContext, bool disposed) : IUnit
     {
         return await dbContext.SaveChangesAsync();
     }
-
-    public IRepository<T> Repository<T>() where T : Entity
-    {
-        return new Repository<T>(dbContext);
-    }
-
 
     private async Task DisposeAsync(bool disposing)
     {

@@ -17,16 +17,22 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers();
-        services.AddDbContextConfig(configuration);
         services.AddRepositoriesConfig();
+        services.AddDbContextConfig(configuration);
         return services;
     }
 
     private static void AddRepositoriesConfig(this IServiceCollection services)
     {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        // Implement UnitOfWork properly
-        
+        services.AddTransient<IUnitOfWork>(provider =>
+        {
+            var dbContext = provider.GetRequiredService<MiriamDbContext>();
+
+            var disposed = false;
+
+            return new UnitOfWork(dbContext, disposed);
+        });
+
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<ITagRepository, TagRepository>();
