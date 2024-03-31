@@ -1,8 +1,11 @@
 using System.Text;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Miriam.Api.Startup;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Miriam.Api;
 
@@ -24,8 +27,12 @@ public static class DependencyInjection
 
     private static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
     {
+        services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerConfiguration>();
+
         services.AddSwaggerGen(genOptions =>
         {
+            genOptions.EnableAnnotations();
+
             genOptions.AddSecurityDefinition("MiriamBearerAuth", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.Http,
@@ -57,12 +64,10 @@ public static class DependencyInjection
             options.DefaultApiVersion = new ApiVersion(1, 0);
             options.ReportApiVersions = true;
             options.AssumeDefaultVersionWhenUnspecified = true;
-            options.ApiVersionReader = ApiVersionReader.Combine(
-                new UrlSegmentApiVersionReader(),
-                new HeaderApiVersionReader("api-version"));
+            options.ApiVersionReader = new HeaderApiVersionReader("api-version");
         }).AddApiExplorer(options =>
         {
-            options.GroupNameFormat = "'v'V";
+            options.GroupNameFormat = "'v'VVV";
             options.SubstituteApiVersionInUrl = true;
         });
 

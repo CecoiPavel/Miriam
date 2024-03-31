@@ -24,4 +24,11 @@
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Authentication\Commands\Register\" />
+    <Folder Include="Posts\Commands\" />
+    <Folder Include="Posts\Common\" />
+  </ItemGroup>
+
 </Project>

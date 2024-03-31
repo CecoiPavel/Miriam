@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Miriam.Api.Controllers.Base;
-using Miriam.Application.Authentication.Command;
+using Miriam.Application.Authentication.Queries.Login;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Miriam.Api.Controllers.v1.Authentication;
@@ -17,7 +17,10 @@ public class AuthenticationController(IMediator mediator) : BaseController(media
     [SwaggerOperation(Summary = "LogIn")]
     public async Task<IActionResult> LogIn()
     {
-        var token = await _mediator.Send(new AuthenticationCommand());
+        var token = await _mediator.Send(new LoginQuery(
+            UserName: string.Empty, 
+            Password: string.Empty));
+        
         return Ok(token);
     }
 }
