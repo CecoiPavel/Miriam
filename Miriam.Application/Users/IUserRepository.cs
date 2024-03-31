@@ -7,5 +7,5 @@ namespace Miriam.Application.Users;
 public interface IUserRepository : IRepository<UserEntity>
 {
     Task<List<IUser>> GetUser();
-    public Task<UserEntity> GetUserByName(string userName);
+    public Task<IUser?> GetUserByName(string userName);
 }
