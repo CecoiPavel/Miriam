@@ -5,7 +5,6 @@ namespace Miriam.Application.Posts;
 
 public interface IPostRepository : IRepository<PostEntity>
 {
-   public Task<IEnumerable<PostEntity>> GetAllPaginatedPosts();
-   public Task<PostEntity> GetPostByName(string postName);
-   public Task<PostEntity> GetPostByUserId(string userId);
+   public Task<List<PostEntity?>> GetAllPosts();
+   public Task<PostEntity?> GetPostByTitle(string postTitle);
 }

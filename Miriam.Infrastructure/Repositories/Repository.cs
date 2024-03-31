@@ -1,14 +1,26 @@
 using Microsoft.EntityFrameworkCore;
 using Miriam.Application.Abstractions.Repositories;
 using Miriam.Domain.Base;
+using Miriam.Infrastructure.Persistence;
 
-namespace Miriam.Infrastructure.Persistence.Repositories;
+namespace Miriam.Infrastructure.Repositories;
 
-public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> where TEntity : Entity
+public class Repository<TEntity>(MiriamDbContext dbContext) : IRepository<TEntity> where TEntity : Entity
 {
+    protected DbSet<TEntity> Table { get; }
     public async Task<IEnumerable<TEntity>> GetAll()
     {
         return await dbContext.Set<TEntity>().ToListAsync();
+    }
+
+    public IQueryable<TEntity> GetReadOnlyQuery()
+    {
+        return Table.AsNoTracking();
+    }
+
+    public IQueryable<TEntity> GetChangeTrackingQuery()
+    {
+        return Table.AsTracking();
     }
 
     public async Task<TEntity?> GetById(int entityId)

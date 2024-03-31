@@ -11,8 +11,8 @@ namespace Miriam.Infrastructure.Persistence;
 public class MiriamDbContext(DbContextOptions<MiriamDbContext> options) : DbContext(options)
 {
     
-    public DbSet<AuthenticationUser> Users { get; set; }
-    public DbSet<PostEntity> Posts { get; set; }
+    public DbSet<AuthenticationUser?> Users { get; set; }
+    public DbSet<PostEntity?> Posts { get; set; }
     public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<PostCategoriesEntity> PostCategories { get; set; }
     public DbSet<CommentEntity> Comments { get; set; }

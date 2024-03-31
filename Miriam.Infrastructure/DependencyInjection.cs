@@ -8,7 +8,7 @@ using Miriam.Application.Posts;
 using Miriam.Application.Tags;
 using Miriam.Application.Users;
 using Miriam.Infrastructure.Persistence;
-using Miriam.Infrastructure.Persistence.Repositories;
+using Miriam.Infrastructure.Repositories;
 
 namespace Miriam.Infrastructure;
 

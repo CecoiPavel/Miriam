@@ -5,5 +5,5 @@ namespace Miriam.Application.Comments;
 
 public interface ICommentRepository : IRepository<CommentEntity>
 {
-    public Task<IEnumerable<CommentEntity>> GetPaginatedCommentsByPostId();
+    public Task<IEnumerable<CommentEntity>> GetCommentsByPostId(string postId);
 }

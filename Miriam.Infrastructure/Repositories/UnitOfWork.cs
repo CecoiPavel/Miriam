@@ -4,8 +4,9 @@ using Miriam.Application.Comments;
 using Miriam.Application.Posts;
 using Miriam.Application.Tags;
 using Miriam.Application.Users;
+using Miriam.Infrastructure.Persistence;
 
-namespace Miriam.Infrastructure.Persistence.Repositories;
+namespace Miriam.Infrastructure.Repositories;
 
 public sealed class UnitOfWork(MiriamDbContext dbContext, bool disposed) : IUnitOfWork
 {
