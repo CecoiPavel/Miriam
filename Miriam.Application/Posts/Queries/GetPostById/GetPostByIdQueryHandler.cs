@@ -1,4 +1,4 @@
-namespace Miriam.Application.Post.Queries.GetPostById;
+namespace Miriam.Application.Posts.Queries.GetPostById;
 
 public class GetPostByIdQueryHandler
 {

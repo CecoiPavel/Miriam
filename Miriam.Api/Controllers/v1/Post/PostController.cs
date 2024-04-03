@@ -2,6 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Miriam.Api.Controllers.Base;
+using Miriam.Application.Posts.Commands;
+using Miriam.Application.Posts.Common;
+using Miriam.Application.Posts.Queries.GetAllPosts;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Miriam.Api.Controllers.v1.Post;
@@ -12,10 +15,10 @@ public class PostController(IMediator mediator) : BaseController(mediator)
 {
     [HttpGet]
     [SwaggerOperation(Summary = "Get all paginated posts")]
-    public async Task<IActionResult> GetAllPaginatedPosts()
+    public async Task<RequestPostDto> GetAllPaginatedPosts()
     {
-        await Task.CompletedTask;
-        return Ok();
+        var result = await mediator.Send(new GetAllPostsQuery());
+        return RequestPostDto.FromEntity(result);
     }
 
     [HttpGet("name")]
@@ -44,10 +47,10 @@ public class PostController(IMediator mediator) : BaseController(mediator)
 
     [HttpPost]
     [SwaggerOperation(Summary = "Create new post")]
-    public async Task<IActionResult> CreateNewPost()
+    public async Task<PostDto> CreateNewPost([FromBody] PostDto request)
     {
-        await Task.CompletedTask;
-        return Ok();
+        var result = await mediator.Send(new CreateNewPostCommand(request));
+        return PostDto.ToDto(result);
     }
 
     [HttpPut]
